@@ -89,6 +89,7 @@ def analyze_franja(id_franja: str) -> dict[str, object]:
     }
 
 
+@lru_cache(maxsize=16)
 def build_cycle_summary(id_ciclo: str) -> pd.DataFrame:
     dataset = load_dataset()
     rows = []
@@ -449,6 +450,13 @@ cycle_options = [
 ]
 default_cycle = cycle_options[0]["value"] if cycle_options else None
 default_franjas = dataset.get_franjas_by_ciclo(default_cycle, operativas_only=True) if default_cycle else []
+default_franja_options = [
+    {
+        "label": f"Franja {franja.numero_franja:02d} · {franja.id_franja}",
+        "value": franja.id_franja,
+    }
+    for franja in default_franjas
+]
 default_franja = default_franjas[0].id_franja if default_franjas else None
 
 
@@ -515,6 +523,8 @@ app.layout = dbc.Container(
                                 html.Label("Franja", className="control-label"),
                                 dcc.Dropdown(
                                     id="franja-dropdown",
+                                    options=default_franja_options,
+                                    value=default_franja,
                                     clearable=False,
                                 ),
                             ],
@@ -631,19 +641,9 @@ def update_franja_options(cycle_id: str | None):
     Output("cycle-scatter-figure", "figure"),
     Output("cycle-table", "data"),
     Output("cycle-table", "columns"),
-    Output("franja-title", "children"),
-    Output("franja-note", "children"),
-    Output("franja-kpis", "children"),
-    Output("copper-figure", "figure"),
-    Output("acid-figure", "figure"),
-    Output("rl-figure", "figure"),
-    Output("module-figure", "figure"),
-    Output("module-table", "data"),
-    Output("module-table", "columns"),
     Input("cycle-dropdown", "value"),
-    Input("franja-dropdown", "value"),
 )
-def update_dashboard(cycle_id: str | None, franja_id: str | None):
+def update_cycle_dashboard(cycle_id: str | None):
     summary_df = build_cycle_summary(cycle_id) if cycle_id else pd.DataFrame()
 
     cycle_cards = []
@@ -683,13 +683,31 @@ def update_dashboard(cycle_id: str | None, franja_id: str | None):
 
     cycle_table_data, cycle_table_columns = cycle_table_records(summary_df)
 
+    return (
+        cycle_cards,
+        figure_cycle_recovery(summary_df),
+        figure_cycle_scatter(summary_df),
+        cycle_table_data,
+        cycle_table_columns,
+    )
+
+
+@app.callback(
+    Output("franja-title", "children"),
+    Output("franja-note", "children"),
+    Output("franja-kpis", "children"),
+    Output("copper-figure", "figure"),
+    Output("acid-figure", "figure"),
+    Output("rl-figure", "figure"),
+    Output("module-figure", "figure"),
+    Output("module-table", "data"),
+    Output("module-table", "columns"),
+    Input("franja-dropdown", "value"),
+)
+def update_franja_dashboard(franja_id: str | None):
+
     if not franja_id:
         return (
-            cycle_cards,
-            figure_cycle_recovery(summary_df),
-            figure_cycle_scatter(summary_df),
-            cycle_table_data,
-            cycle_table_columns,
             "Sin franja seleccionada",
             "",
             [],
@@ -749,11 +767,6 @@ def update_dashboard(cycle_id: str | None, franja_id: str | None):
     module_table_data, module_table_columns = module_table_records(analysis["module_metrics_df"])
 
     return (
-        cycle_cards,
-        figure_cycle_recovery(summary_df),
-        figure_cycle_scatter(summary_df),
-        cycle_table_data,
-        cycle_table_columns,
         f"Franja {franja.numero_franja:02d} · {franja.id_franja}",
         franja_note,
         franja_cards,
