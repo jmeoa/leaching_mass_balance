@@ -1,0 +1,189 @@
+:root {
+    --copper: #b35c2e;
+    --acid: #d1a126;
+    --water: #2d7f7a;
+    --slate: #213547;
+    --ink: #16212b;
+    --mist: #eef2ef;
+    --sand: #f5efe3;
+    --white: #ffffff;
+    --shadow: 0 18px 40px rgba(22, 33, 43, 0.08);
+}
+
+body {
+    font-family: "Avenir Next", "Segoe UI", sans-serif;
+    color: var(--ink);
+    background:
+        radial-gradient(circle at top left, rgba(209, 161, 38, 0.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(45, 127, 122, 0.18), transparent 30%),
+        linear-gradient(180deg, #f7f3ea 0%, #eef2ef 52%, #f3f5f4 100%);
+    min-height: 100vh;
+}
+
+.app-shell {
+    padding: 1.5rem 1rem 2rem;
+}
+
+.hero-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(280px, 0.8fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.hero-copy-wrap,
+.hero-stat-card,
+.panel-card,
+.metric-card {
+    background: rgba(255, 255, 255, 0.84);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(33, 53, 71, 0.08);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+}
+
+.hero-copy-wrap {
+    padding: 2rem 2.2rem;
+    background:
+        linear-gradient(135deg, rgba(179, 92, 46, 0.12), rgba(255, 255, 255, 0.84)),
+        rgba(255, 255, 255, 0.84);
+}
+
+.hero-kicker,
+.section-kicker,
+.table-title,
+.control-label {
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--water);
+}
+
+.hero-title {
+    margin: 0.4rem 0 0.7rem;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.02;
+    color: var(--slate);
+}
+
+.hero-copy,
+.section-note,
+.metric-subtitle,
+.hero-stat-note {
+    color: rgba(22, 33, 43, 0.72);
+    line-height: 1.5;
+}
+
+.hero-stat-card {
+    padding: 1.8rem;
+    background:
+        linear-gradient(160deg, rgba(33, 53, 71, 0.95), rgba(45, 127, 122, 0.9)),
+        var(--slate);
+    color: var(--white);
+}
+
+.hero-stat-label {
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    opacity: 0.75;
+}
+
+.hero-stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0.35rem 0 0.75rem;
+}
+
+.hero-stat-note {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.control-panel {
+    margin-bottom: 1.5rem;
+}
+
+.panel-card {
+    padding: 0.1rem;
+}
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem;
+    margin: 0 0 1.5rem;
+}
+
+.metric-card {
+    min-height: 150px;
+    overflow: hidden;
+}
+
+.metric-card .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    justify-content: space-between;
+    padding: 1.25rem 1.3rem;
+}
+
+.metric-label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.73rem;
+    font-weight: 700;
+}
+
+.metric-value {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    line-height: 1;
+    font-weight: 800;
+    color: var(--slate);
+}
+
+.metric-subtitle {
+    font-size: 0.9rem;
+}
+
+.tone-copper .metric-label {
+    color: var(--copper);
+}
+
+.tone-acid .metric-label {
+    color: var(--acid);
+}
+
+.tone-water .metric-label {
+    color: var(--water);
+}
+
+.tone-slate .metric-label {
+    color: var(--slate);
+}
+
+.section-title {
+    margin: 0.4rem 0 0.3rem;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--slate);
+}
+
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td,
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th {
+    border: none !important;
+}
+
+@media (max-width: 900px) {
+    .hero-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .app-shell {
+        padding: 1rem 0.5rem 2rem;
+    }
+}

@@ -1,0 +1,24 @@
+{
+  "generado": "2026-04-02",
+  "seed": 42,
+  "parametros": {
+    "n_ciclos": 2,
+    "n_franjas_total": 7,
+    "n_franjas_operativas": 6,
+    "tonelaje_por_franja_t": 1000000,
+    "altura_m": 6.0,
+    "area_modulo_m2": 10000,
+    "n_modulos_por_franja": 10,
+    "area_franja_m2": 104167.0,
+    "dias_riego": 120
+  },
+  "archivos": {
+    "pads.csv": 1,
+    "ciclos.csv": 2,
+    "franjas.csv": 14,
+    "modulos.csv": 140,
+    "ruteo.csv": 188,
+    "riego_diario.csv": 14400,
+    "pls_diario.csv": 1440
+  }
+}

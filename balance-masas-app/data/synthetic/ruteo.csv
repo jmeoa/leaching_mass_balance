@@ -1,0 +1,189 @@
+id_modulo,fecha_inicio,fecha_fin,tipo_solucion,fuente_ils,notas
+PAD-01-C01-F02-M01,2024-01-27,2024-05-26,refino,,Asignación inicial
+PAD-01-C01-F02-M02,2024-01-27,2024-05-26,refino,,Asignación inicial
+PAD-01-C01-F02-M03,2024-01-27,2024-05-26,refino,,Asignación inicial
+PAD-01-C01-F02-M04,2024-01-27,2024-05-26,refino,,Asignación inicial
+PAD-01-C01-F02-M05,2024-01-27,2024-05-26,refino,,Asignación inicial
+PAD-01-C01-F02-M06,2024-01-27,2024-05-26,refino,,Asignación inicial
+PAD-01-C01-F02-M07,2024-01-27,2024-05-26,refino,,Asignación inicial
+PAD-01-C01-F02-M08,2024-01-27,2024-05-26,refino,,Asignación inicial
+PAD-01-C01-F02-M09,2024-01-27,2024-03-07,refino,,Asignación inicial
+PAD-01-C01-F02-M09,2024-03-07,2024-05-26,ils,PAD-01-C01-F05,Cambio a ILS día 40
+PAD-01-C01-F02-M10,2024-01-27,2024-03-07,refino,,Asignación inicial
+PAD-01-C01-F02-M10,2024-03-07,2024-05-26,ils,PAD-01-C01-F05,Cambio a ILS día 40
+PAD-01-C01-F03-M01,2024-01-25,2024-05-24,refino,,Asignación inicial
+PAD-01-C01-F03-M02,2024-01-25,2024-05-24,refino,,Asignación inicial
+PAD-01-C01-F03-M03,2024-01-25,2024-05-24,refino,,Asignación inicial
+PAD-01-C01-F03-M04,2024-01-25,2024-05-24,refino,,Asignación inicial
+PAD-01-C01-F03-M05,2024-01-25,2024-05-24,refino,,Asignación inicial
+PAD-01-C01-F03-M06,2024-01-25,2024-05-24,refino,,Asignación inicial
+PAD-01-C01-F03-M07,2024-01-25,2024-05-24,refino,,Asignación inicial
+PAD-01-C01-F03-M08,2024-01-25,2024-05-24,refino,,Asignación inicial
+PAD-01-C01-F03-M09,2024-01-25,2024-03-05,refino,,Asignación inicial
+PAD-01-C01-F03-M09,2024-03-05,2024-05-24,ils,PAD-01-C01-F06,Cambio a ILS día 40
+PAD-01-C01-F03-M10,2024-01-25,2024-03-05,refino,,Asignación inicial
+PAD-01-C01-F03-M10,2024-03-05,2024-05-24,ils,PAD-01-C01-F06,Cambio a ILS día 40
+PAD-01-C01-F04-M01,2024-02-17,2024-06-16,refino,,Asignación inicial
+PAD-01-C01-F04-M02,2024-02-17,2024-03-08,refino,,Asignación inicial
+PAD-01-C01-F04-M02,2024-03-08,2024-06-16,ils,PAD-01-C01-F02,Cambio a ILS día 20
+PAD-01-C01-F04-M03,2024-02-17,2024-03-08,refino,,Asignación inicial
+PAD-01-C01-F04-M03,2024-03-08,2024-06-16,ils,PAD-01-C01-F02,Cambio a ILS día 20
+PAD-01-C01-F04-M04,2024-02-17,2024-06-16,refino,,Asignación inicial
+PAD-01-C01-F04-M05,2024-02-17,2024-03-08,refino,,Asignación inicial
+PAD-01-C01-F04-M05,2024-03-08,2024-06-16,ils,PAD-01-C01-F03,Cambio a ILS día 20
+PAD-01-C01-F04-M06,2024-02-17,2024-03-08,refino,,Asignación inicial
+PAD-01-C01-F04-M06,2024-03-08,2024-06-16,ils,PAD-01-C01-F03,Cambio a ILS día 20
+PAD-01-C01-F04-M07,2024-02-17,2024-06-16,refino,,Asignación inicial
+PAD-01-C01-F04-M08,2024-02-17,2024-03-08,refino,,Asignación inicial
+PAD-01-C01-F04-M08,2024-03-08,2024-06-16,ils,PAD-01-C01-F03,Cambio a ILS día 20
+PAD-01-C01-F04-M09,2024-02-17,2024-03-08,refino,,Asignación inicial
+PAD-01-C01-F04-M09,2024-03-08,2024-06-16,ils,PAD-01-C01-F02,Cambio a ILS día 20
+PAD-01-C01-F04-M10,2024-02-17,2024-06-16,refino,,Asignación inicial
+PAD-01-C01-F05-M01,2024-03-03,2024-07-01,refino,,Asignación inicial
+PAD-01-C01-F05-M02,2024-03-03,2024-03-23,refino,,Asignación inicial
+PAD-01-C01-F05-M02,2024-03-23,2024-07-01,ils,PAD-01-C01-F03,Cambio a ILS día 20
+PAD-01-C01-F05-M03,2024-03-03,2024-03-23,refino,,Asignación inicial
+PAD-01-C01-F05-M03,2024-03-23,2024-07-01,ils,PAD-01-C01-F03,Cambio a ILS día 20
+PAD-01-C01-F05-M04,2024-03-03,2024-07-01,refino,,Asignación inicial
+PAD-01-C01-F05-M05,2024-03-03,2024-03-23,refino,,Asignación inicial
+PAD-01-C01-F05-M05,2024-03-23,2024-07-01,ils,PAD-01-C01-F02,Cambio a ILS día 20
+PAD-01-C01-F05-M06,2024-03-03,2024-03-23,refino,,Asignación inicial
+PAD-01-C01-F05-M06,2024-03-23,2024-07-01,ils,PAD-01-C01-F02,Cambio a ILS día 20
+PAD-01-C01-F05-M07,2024-03-03,2024-07-01,refino,,Asignación inicial
+PAD-01-C01-F05-M08,2024-03-03,2024-03-23,refino,,Asignación inicial
+PAD-01-C01-F05-M08,2024-03-23,2024-07-01,ils,PAD-01-C01-F02,Cambio a ILS día 20
+PAD-01-C01-F05-M09,2024-03-03,2024-03-23,refino,,Asignación inicial
+PAD-01-C01-F05-M09,2024-03-23,2024-07-01,ils,PAD-01-C01-F02,Cambio a ILS día 20
+PAD-01-C01-F05-M10,2024-03-03,2024-07-01,refino,,Asignación inicial
+PAD-01-C01-F06-M01,2024-03-15,2024-07-13,refino,,Asignación inicial
+PAD-01-C01-F06-M02,2024-03-15,2024-03-25,refino,,Asignación inicial
+PAD-01-C01-F06-M02,2024-03-25,2024-07-13,ils,PAD-01-C01-F03,Cambio a ILS día 10
+PAD-01-C01-F06-M03,2024-03-15,2024-03-25,refino,,Asignación inicial
+PAD-01-C01-F06-M03,2024-03-25,2024-07-13,ils,PAD-01-C01-F04,Cambio a ILS día 10
+PAD-01-C01-F06-M04,2024-03-15,2024-03-25,refino,,Asignación inicial
+PAD-01-C01-F06-M04,2024-03-25,2024-07-13,ils,PAD-01-C01-F02,Cambio a ILS día 10
+PAD-01-C01-F06-M05,2024-03-15,2024-03-25,refino,,Asignación inicial
+PAD-01-C01-F06-M05,2024-03-25,2024-07-13,ils,PAD-01-C01-F04,Cambio a ILS día 10
+PAD-01-C01-F06-M06,2024-03-15,2024-03-25,refino,,Asignación inicial
+PAD-01-C01-F06-M06,2024-03-25,2024-07-13,ils,PAD-01-C01-F04,Cambio a ILS día 10
+PAD-01-C01-F06-M07,2024-03-15,2024-03-25,refino,,Asignación inicial
+PAD-01-C01-F06-M07,2024-03-25,2024-07-13,ils,PAD-01-C01-F02,Cambio a ILS día 10
+PAD-01-C01-F06-M08,2024-03-15,2024-03-25,refino,,Asignación inicial
+PAD-01-C01-F06-M08,2024-03-25,2024-07-13,ils,PAD-01-C01-F03,Cambio a ILS día 10
+PAD-01-C01-F06-M09,2024-03-15,2024-03-25,refino,,Asignación inicial
+PAD-01-C01-F06-M09,2024-03-25,2024-07-13,ils,PAD-01-C01-F02,Cambio a ILS día 10
+PAD-01-C01-F06-M10,2024-03-15,2024-03-25,refino,,Asignación inicial
+PAD-01-C01-F06-M10,2024-03-25,2024-07-13,ils,PAD-01-C01-F04,Cambio a ILS día 10
+PAD-01-C01-F07-M01,2024-04-02,2024-07-31,refino,,Asignación inicial
+PAD-01-C01-F07-M02,2024-04-02,2024-04-12,refino,,Asignación inicial
+PAD-01-C01-F07-M02,2024-04-12,2024-07-31,ils,PAD-01-C01-F04,Cambio a ILS día 10
+PAD-01-C01-F07-M03,2024-04-02,2024-04-12,refino,,Asignación inicial
+PAD-01-C01-F07-M03,2024-04-12,2024-07-31,ils,PAD-01-C01-F03,Cambio a ILS día 10
+PAD-01-C01-F07-M04,2024-04-02,2024-04-12,refino,,Asignación inicial
+PAD-01-C01-F07-M04,2024-04-12,2024-07-31,ils,PAD-01-C01-F02,Cambio a ILS día 10
+PAD-01-C01-F07-M05,2024-04-02,2024-04-12,refino,,Asignación inicial
+PAD-01-C01-F07-M05,2024-04-12,2024-07-31,ils,PAD-01-C01-F04,Cambio a ILS día 10
+PAD-01-C01-F07-M06,2024-04-02,2024-04-12,refino,,Asignación inicial
+PAD-01-C01-F07-M06,2024-04-12,2024-07-31,ils,PAD-01-C01-F03,Cambio a ILS día 10
+PAD-01-C01-F07-M07,2024-04-02,2024-04-12,refino,,Asignación inicial
+PAD-01-C01-F07-M07,2024-04-12,2024-07-31,ils,PAD-01-C01-F04,Cambio a ILS día 10
+PAD-01-C01-F07-M08,2024-04-02,2024-04-12,refino,,Asignación inicial
+PAD-01-C01-F07-M08,2024-04-12,2024-07-31,ils,PAD-01-C01-F04,Cambio a ILS día 10
+PAD-01-C01-F07-M09,2024-04-02,2024-04-12,refino,,Asignación inicial
+PAD-01-C01-F07-M09,2024-04-12,2024-07-31,ils,PAD-01-C01-F04,Cambio a ILS día 10
+PAD-01-C01-F07-M10,2024-04-02,2024-04-12,refino,,Asignación inicial
+PAD-01-C01-F07-M10,2024-04-12,2024-07-31,ils,PAD-01-C01-F04,Cambio a ILS día 10
+PAD-01-C02-F01-M01,2024-08-30,2024-12-28,refino,,Asignación inicial
+PAD-01-C02-F01-M02,2024-08-30,2024-12-28,refino,,Asignación inicial
+PAD-01-C02-F01-M03,2024-08-30,2024-12-28,refino,,Asignación inicial
+PAD-01-C02-F01-M04,2024-08-30,2024-12-28,refino,,Asignación inicial
+PAD-01-C02-F01-M05,2024-08-30,2024-12-28,refino,,Asignación inicial
+PAD-01-C02-F01-M06,2024-08-30,2024-12-28,refino,,Asignación inicial
+PAD-01-C02-F01-M07,2024-08-30,2024-12-28,refino,,Asignación inicial
+PAD-01-C02-F01-M08,2024-08-30,2024-12-28,refino,,Asignación inicial
+PAD-01-C02-F01-M09,2024-08-30,2024-10-09,refino,,Asignación inicial
+PAD-01-C02-F01-M09,2024-10-09,2024-12-28,ils,PAD-01-C02-F05,Cambio a ILS día 40
+PAD-01-C02-F01-M10,2024-08-30,2024-10-09,refino,,Asignación inicial
+PAD-01-C02-F01-M10,2024-10-09,2024-12-28,ils,PAD-01-C02-F05,Cambio a ILS día 40
+PAD-01-C02-F02-M01,2024-09-13,2025-01-11,refino,,Asignación inicial
+PAD-01-C02-F02-M02,2024-09-13,2025-01-11,refino,,Asignación inicial
+PAD-01-C02-F02-M03,2024-09-13,2025-01-11,refino,,Asignación inicial
+PAD-01-C02-F02-M04,2024-09-13,2025-01-11,refino,,Asignación inicial
+PAD-01-C02-F02-M05,2024-09-13,2025-01-11,refino,,Asignación inicial
+PAD-01-C02-F02-M06,2024-09-13,2025-01-11,refino,,Asignación inicial
+PAD-01-C02-F02-M07,2024-09-13,2025-01-11,refino,,Asignación inicial
+PAD-01-C02-F02-M08,2024-09-13,2025-01-11,refino,,Asignación inicial
+PAD-01-C02-F02-M09,2024-09-13,2024-10-23,refino,,Asignación inicial
+PAD-01-C02-F02-M09,2024-10-23,2025-01-11,ils,PAD-01-C02-F06,Cambio a ILS día 40
+PAD-01-C02-F02-M10,2024-09-13,2024-10-23,refino,,Asignación inicial
+PAD-01-C02-F02-M10,2024-10-23,2025-01-11,ils,PAD-01-C02-F06,Cambio a ILS día 40
+PAD-01-C02-F03-M01,2024-09-23,2025-01-21,refino,,Asignación inicial
+PAD-01-C02-F03-M02,2024-09-23,2024-10-13,refino,,Asignación inicial
+PAD-01-C02-F03-M02,2024-10-13,2025-01-21,ils,PAD-01-C02-F02,Cambio a ILS día 20
+PAD-01-C02-F03-M03,2024-09-23,2024-10-13,refino,,Asignación inicial
+PAD-01-C02-F03-M03,2024-10-13,2025-01-21,ils,PAD-01-C02-F02,Cambio a ILS día 20
+PAD-01-C02-F03-M04,2024-09-23,2025-01-21,refino,,Asignación inicial
+PAD-01-C02-F03-M05,2024-09-23,2024-10-13,refino,,Asignación inicial
+PAD-01-C02-F03-M05,2024-10-13,2025-01-21,ils,PAD-01-C02-F02,Cambio a ILS día 20
+PAD-01-C02-F03-M06,2024-09-23,2024-10-13,refino,,Asignación inicial
+PAD-01-C02-F03-M06,2024-10-13,2025-01-21,ils,PAD-01-C02-F01,Cambio a ILS día 20
+PAD-01-C02-F03-M07,2024-09-23,2025-01-21,refino,,Asignación inicial
+PAD-01-C02-F03-M08,2024-09-23,2024-10-13,refino,,Asignación inicial
+PAD-01-C02-F03-M08,2024-10-13,2025-01-21,ils,PAD-01-C02-F01,Cambio a ILS día 20
+PAD-01-C02-F03-M09,2024-09-23,2024-10-13,refino,,Asignación inicial
+PAD-01-C02-F03-M09,2024-10-13,2025-01-21,ils,PAD-01-C02-F02,Cambio a ILS día 20
+PAD-01-C02-F03-M10,2024-09-23,2025-01-21,refino,,Asignación inicial
+PAD-01-C02-F05-M01,2024-10-17,2025-02-14,refino,,Asignación inicial
+PAD-01-C02-F05-M02,2024-10-17,2024-11-06,refino,,Asignación inicial
+PAD-01-C02-F05-M02,2024-11-06,2025-02-14,ils,PAD-01-C02-F01,Cambio a ILS día 20
+PAD-01-C02-F05-M03,2024-10-17,2024-11-06,refino,,Asignación inicial
+PAD-01-C02-F05-M03,2024-11-06,2025-02-14,ils,PAD-01-C02-F01,Cambio a ILS día 20
+PAD-01-C02-F05-M04,2024-10-17,2025-02-14,refino,,Asignación inicial
+PAD-01-C02-F05-M05,2024-10-17,2024-11-06,refino,,Asignación inicial
+PAD-01-C02-F05-M05,2024-11-06,2025-02-14,ils,PAD-01-C02-F01,Cambio a ILS día 20
+PAD-01-C02-F05-M06,2024-10-17,2024-11-06,refino,,Asignación inicial
+PAD-01-C02-F05-M06,2024-11-06,2025-02-14,ils,PAD-01-C02-F02,Cambio a ILS día 20
+PAD-01-C02-F05-M07,2024-10-17,2025-02-14,refino,,Asignación inicial
+PAD-01-C02-F05-M08,2024-10-17,2024-11-06,refino,,Asignación inicial
+PAD-01-C02-F05-M08,2024-11-06,2025-02-14,ils,PAD-01-C02-F01,Cambio a ILS día 20
+PAD-01-C02-F05-M09,2024-10-17,2024-11-06,refino,,Asignación inicial
+PAD-01-C02-F05-M09,2024-11-06,2025-02-14,ils,PAD-01-C02-F02,Cambio a ILS día 20
+PAD-01-C02-F05-M10,2024-10-17,2025-02-14,refino,,Asignación inicial
+PAD-01-C02-F06-M01,2024-11-08,2025-03-08,refino,,Asignación inicial
+PAD-01-C02-F06-M02,2024-11-08,2024-11-18,refino,,Asignación inicial
+PAD-01-C02-F06-M02,2024-11-18,2025-03-08,ils,PAD-01-C02-F03,Cambio a ILS día 10
+PAD-01-C02-F06-M03,2024-11-08,2024-11-18,refino,,Asignación inicial
+PAD-01-C02-F06-M03,2024-11-18,2025-03-08,ils,PAD-01-C02-F02,Cambio a ILS día 10
+PAD-01-C02-F06-M04,2024-11-08,2024-11-18,refino,,Asignación inicial
+PAD-01-C02-F06-M04,2024-11-18,2025-03-08,ils,PAD-01-C02-F02,Cambio a ILS día 10
+PAD-01-C02-F06-M05,2024-11-08,2024-11-18,refino,,Asignación inicial
+PAD-01-C02-F06-M05,2024-11-18,2025-03-08,ils,PAD-01-C02-F02,Cambio a ILS día 10
+PAD-01-C02-F06-M06,2024-11-08,2024-11-18,refino,,Asignación inicial
+PAD-01-C02-F06-M06,2024-11-18,2025-03-08,ils,PAD-01-C02-F02,Cambio a ILS día 10
+PAD-01-C02-F06-M07,2024-11-08,2024-11-18,refino,,Asignación inicial
+PAD-01-C02-F06-M07,2024-11-18,2025-03-08,ils,PAD-01-C02-F03,Cambio a ILS día 10
+PAD-01-C02-F06-M08,2024-11-08,2024-11-18,refino,,Asignación inicial
+PAD-01-C02-F06-M08,2024-11-18,2025-03-08,ils,PAD-01-C02-F02,Cambio a ILS día 10
+PAD-01-C02-F06-M09,2024-11-08,2024-11-18,refino,,Asignación inicial
+PAD-01-C02-F06-M09,2024-11-18,2025-03-08,ils,PAD-01-C02-F01,Cambio a ILS día 10
+PAD-01-C02-F06-M10,2024-11-08,2024-11-18,refino,,Asignación inicial
+PAD-01-C02-F06-M10,2024-11-18,2025-03-08,ils,PAD-01-C02-F03,Cambio a ILS día 10
+PAD-01-C02-F07-M01,2024-10-11,2025-02-08,refino,,Asignación inicial
+PAD-01-C02-F07-M02,2024-10-11,2024-10-21,refino,,Asignación inicial
+PAD-01-C02-F07-M02,2024-10-21,2025-02-08,ils,PAD-01-C02-F02,Cambio a ILS día 10
+PAD-01-C02-F07-M03,2024-10-11,2024-10-21,refino,,Asignación inicial
+PAD-01-C02-F07-M03,2024-10-21,2025-02-08,ils,PAD-01-C02-F03,Cambio a ILS día 10
+PAD-01-C02-F07-M04,2024-10-11,2024-10-21,refino,,Asignación inicial
+PAD-01-C02-F07-M04,2024-10-21,2025-02-08,ils,PAD-01-C02-F03,Cambio a ILS día 10
+PAD-01-C02-F07-M05,2024-10-11,2024-10-21,refino,,Asignación inicial
+PAD-01-C02-F07-M05,2024-10-21,2025-02-08,ils,PAD-01-C02-F02,Cambio a ILS día 10
+PAD-01-C02-F07-M06,2024-10-11,2024-10-21,refino,,Asignación inicial
+PAD-01-C02-F07-M06,2024-10-21,2025-02-08,ils,PAD-01-C02-F02,Cambio a ILS día 10
+PAD-01-C02-F07-M07,2024-10-11,2024-10-21,refino,,Asignación inicial
+PAD-01-C02-F07-M07,2024-10-21,2025-02-08,ils,PAD-01-C02-F02,Cambio a ILS día 10
+PAD-01-C02-F07-M08,2024-10-11,2024-10-21,refino,,Asignación inicial
+PAD-01-C02-F07-M08,2024-10-21,2025-02-08,ils,PAD-01-C02-F03,Cambio a ILS día 10
+PAD-01-C02-F07-M09,2024-10-11,2024-10-21,refino,,Asignación inicial
+PAD-01-C02-F07-M09,2024-10-21,2025-02-08,ils,PAD-01-C02-F01,Cambio a ILS día 10
+PAD-01-C02-F07-M10,2024-10-11,2024-10-21,refino,,Asignación inicial
+PAD-01-C02-F07-M10,2024-10-21,2025-02-08,ils,PAD-01-C02-F03,Cambio a ILS día 10
