@@ -102,10 +102,40 @@ body {
 
 .control-panel {
     margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 40;
+    overflow: visible;
 }
 
 .panel-card {
     padding: 0.1rem;
+}
+
+.control-panel .card-body,
+.control-panel .row,
+.control-panel [class*="col-"] {
+    overflow: visible;
+}
+
+.control-panel .Select,
+.control-panel .select__control {
+    position: relative;
+    z-index: 50;
+}
+
+.control-panel .Select-menu-outer,
+.control-panel .Select-menu,
+.control-panel .select__menu,
+.control-panel .VirtualizedSelectOption,
+.control-panel .VirtualizedSelectFocusedOption {
+    z-index: 2000 !important;
+}
+
+.js-plotly-plot,
+.plot-container,
+.dash-graph {
+    position: relative;
+    z-index: 1;
 }
 
 .metric-grid {

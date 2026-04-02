@@ -279,6 +279,53 @@ def figure_copper(daily_df: pd.DataFrame) -> go.Figure:
     return figure
 
 
+def figure_recovery_curve(daily_df: pd.DataFrame) -> go.Figure:
+    if daily_df.empty:
+        return empty_figure("Curva de recuperación de cobre")
+    figure = go.Figure()
+    figure.add_hrect(
+        y0=50,
+        y1=75,
+        fillcolor="rgba(45, 127, 122, 0.10)",
+        line_width=0,
+        annotation_text="Banda objetivo 50-75%",
+        annotation_position="top left",
+    )
+    figure.add_trace(
+        go.Scatter(
+            x=daily_df["fecha"],
+            y=daily_df["recovery_direct_pct"],
+            name="Directa",
+            line={"color": PALETTE["slate"], "width": 2},
+        )
+    )
+    figure.add_trace(
+        go.Scatter(
+            x=daily_df["fecha"],
+            y=daily_df["recovery_reconciled_pct"],
+            name="Reconciliada",
+            line={"color": PALETTE["copper"], "width": 3},
+        )
+    )
+    if daily_df["recovery_residual_pct"].notna().any():
+        figure.add_trace(
+            go.Scatter(
+                x=daily_df["fecha"],
+                y=daily_df["recovery_residual_pct"],
+                name="Residual",
+                line={"color": PALETTE["acid"], "width": 2, "dash": "dash"},
+            )
+        )
+    figure.update_layout(
+        template="plotly_white",
+        title="Curva de recuperación de cobre",
+        yaxis_title="Recuperación acumulada (%)",
+        margin={"l": 40, "r": 20, "t": 60, "b": 30},
+        legend={"orientation": "h", "y": 1.08},
+    )
+    return figure
+
+
 def figure_acid(daily_df: pd.DataFrame) -> go.Figure:
     if daily_df.empty:
         return empty_figure("Descomposición de ácido")
@@ -320,6 +367,64 @@ def figure_acid(daily_df: pd.DataFrame) -> go.Figure:
         margin={"l": 40, "r": 20, "t": 60, "b": 30},
         legend={"orientation": "h", "y": 1.08},
     )
+    return figure
+
+
+def figure_acid_consumption_curve(daily_df: pd.DataFrame) -> go.Figure:
+    if daily_df.empty:
+        return empty_figure("Curva de consumo de ácido")
+    curve_df = daily_df.copy()
+    curve_df["acid_consumido_acum_t"] = curve_df["acid_consumido_kg"].cumsum() / 1000.0
+    curve_df["acid_asignado_acum_t"] = curve_df["acid_asignado_kg"].cumsum() / 1000.0
+    curve_df["acid_no_asignado_acum_t"] = curve_df["acid_no_asignado_kg"].cumsum() / 1000.0
+
+    figure = make_subplots(specs=[[{"secondary_y": True}]])
+    figure.add_trace(
+        go.Bar(
+            x=curve_df["fecha"],
+            y=curve_df["acid_consumido_kg"] / 1000.0,
+            name="Ácido diario",
+            marker_color=PALETTE["acid"],
+            opacity=0.35,
+        ),
+        secondary_y=False,
+    )
+    figure.add_trace(
+        go.Scatter(
+            x=curve_df["fecha"],
+            y=curve_df["acid_consumido_acum_t"],
+            name="Ácido acumulado",
+            line={"color": PALETTE["ink"], "width": 3},
+        ),
+        secondary_y=True,
+    )
+    figure.add_trace(
+        go.Scatter(
+            x=curve_df["fecha"],
+            y=curve_df["acid_asignado_acum_t"],
+            name="Ácido asignado acumulado",
+            line={"color": PALETTE["water"], "width": 2},
+        ),
+        secondary_y=True,
+    )
+    if curve_df["acid_no_asignado_kg"].abs().sum() > 0:
+        figure.add_trace(
+            go.Scatter(
+                x=curve_df["fecha"],
+                y=curve_df["acid_no_asignado_acum_t"],
+                name="No asignado acumulado",
+                line={"color": PALETTE["copper"], "width": 2, "dash": "dot"},
+            ),
+            secondary_y=True,
+        )
+    figure.update_layout(
+        template="plotly_white",
+        title="Curva de consumo de ácido",
+        margin={"l": 40, "r": 40, "t": 60, "b": 30},
+        legend={"orientation": "h", "y": 1.08},
+    )
+    figure.update_yaxes(title_text="Ácido diario (t/d)", secondary_y=False)
+    figure.update_yaxes(title_text="Ácido acumulado (t)", secondary_y=True)
     return figure
 
 
@@ -556,6 +661,13 @@ app.layout = dbc.Container(
         html.Div(id="franja-kpis", className="metric-grid"),
         dbc.Row(
             [
+                dbc.Col(dcc.Graph(id="recovery-curve-figure"), xl=6),
+                dbc.Col(dcc.Graph(id="acid-consumption-figure"), xl=6),
+            ],
+            className="g-3",
+        ),
+        dbc.Row(
+            [
                 dbc.Col(dcc.Graph(id="copper-figure"), xl=7),
                 dbc.Col(dcc.Graph(id="acid-figure"), xl=5),
             ],
@@ -696,6 +808,8 @@ def update_cycle_dashboard(cycle_id: str | None):
     Output("franja-title", "children"),
     Output("franja-note", "children"),
     Output("franja-kpis", "children"),
+    Output("recovery-curve-figure", "figure"),
+    Output("acid-consumption-figure", "figure"),
     Output("copper-figure", "figure"),
     Output("acid-figure", "figure"),
     Output("rl-figure", "figure"),
@@ -711,6 +825,8 @@ def update_franja_dashboard(franja_id: str | None):
             "Sin franja seleccionada",
             "",
             [],
+            empty_figure("Curva de recuperación de cobre"),
+            empty_figure("Curva de consumo de ácido"),
             empty_figure("Balance de cobre"),
             empty_figure("Descomposición de ácido"),
             empty_figure("Razón de lixiviación"),
@@ -770,6 +886,8 @@ def update_franja_dashboard(franja_id: str | None):
         f"Franja {franja.numero_franja:02d} · {franja.id_franja}",
         franja_note,
         franja_cards,
+        figure_recovery_curve(analysis["copper_daily_df"]),
+        figure_acid_consumption_curve(analysis["acid_daily_df"]),
         figure_copper(analysis["copper_daily_df"]),
         figure_acid(analysis["acid_daily_df"]),
         figure_rl(analysis["rl_daily_df"]),
