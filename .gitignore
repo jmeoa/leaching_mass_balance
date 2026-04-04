@@ -11,3 +11,6 @@ dist/
 build/
 *.egg-info/
 balance-masas-app.zip
+balance-masas-app/frontend/node_modules/
+!balance-masas-app/frontend/dist/
+!balance-masas-app/frontend/dist/**

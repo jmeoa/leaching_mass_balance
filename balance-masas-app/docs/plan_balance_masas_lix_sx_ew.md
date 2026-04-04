@@ -2,7 +2,7 @@
 
 ## 1. Visión General
 
-App en **Dash (Python)** para calcular el balance mensual de cobre y ácido sulfúrico en una cadena Lixiviación → SX (2E+1S) → EW, con:
+App web en **FastAPI + React** para calcular el balance mensual de cobre y ácido sulfúrico en una cadena Lixiviación → SX (2E+1S) → EW, con:
 
 - **Input**: Carga de archivos Excel/CSV
 - **Persistencia**: Google Sheets como backend incremental
@@ -14,15 +14,17 @@ App en **Dash (Python)** para calcular el balance mensual de cobre y ácido sulf
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                      DASH APP                           │
+│                    REACT FRONTEND                       │
 ├──────────┬──────────┬──────────┬──────────┬─────────────┤
 │  Módulo  │  Módulo  │  Módulo  │  Módulo  │   Módulo    │
 │  CARGA   │   LIX    │    SX    │    EW    │  REPORTES   │
 │  (I/O)   │          │ (2E+1S)  │          │             │
 ├──────────┴──────────┴──────────┴──────────┴─────────────┤
-│              CAPA DE CÁLCULO (Engine)                    │
+│                  FASTAPI BACKEND/API                    │
 ├─────────────────────────────────────────────────────────┤
-│          PERSISTENCIA (Google Sheets API)                │
+│              CAPA DE CÁLCULO (Engine)                   │
+├─────────────────────────────────────────────────────────┤
+│          PERSISTENCIA (Google Sheets API)               │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -35,7 +37,7 @@ App en **Dash (Python)** para calcular el balance mensual de cobre y ácido sulf
 **Archivo**: `modules/data_loader.py`
 
 **Funcionalidad**:
-- Upload de Excel/CSV vía `dcc.Upload`
+- Upload de Excel/CSV vía API multipart
 - Validación de columnas esperadas (template estándar)
 - Preview de datos antes de confirmar carga
 - Mapeo flexible de columnas (por si el formato varía)
@@ -163,13 +165,13 @@ Consumo_neto   = acid_makeup / catodos_ton  [kg H₂SO₄ / kg Cu]
 
 ### 3.7 Módulo Dashboard
 
-**Archivo**: `modules/dashboard.py`
+**Archivo**: `modules/dashboard.py` + `frontend/src/App.tsx`
 
 **Pestañas**:
 
 1. **Carga de Datos** — Upload + preview + validación + botón "Procesar"
 2. **Balance Mensual** — Tabla resumen del mes seleccionado (Cu + Ácido)
-3. **Tendencias** — Gráficos de línea (Plotly):
+3. **Tendencias** — Gráficos de línea:
    - Producción de cátodos vs. Cu alimentado
    - Recuperación por etapa (LIX, SX, EW, Global)
    - Consumo neto de ácido (kg/kg Cu)
@@ -191,11 +193,17 @@ Consumo_neto   = acid_makeup / catodos_ton  [kg H₂SO₄ / kg Cu]
 
 ```
 balance-masas-app/
-├── app.py                      # Entry point Dash
+├── app.py                      # Runner local FastAPI
 ├── config.py                   # Configuración (GSheets credentials, etc.)
 ├── requirements.txt
-├── assets/
-│   └── styles.css              # CSS personalizado
+├── backend/
+│   ├── api/
+│   │   └── main.py             # FastAPI
+│   └── core/
+│       └── services.py         # Servicios de aplicación
+├── frontend/
+│   ├── src/                    # React
+│   └── dist/                   # Bundle productivo
 ├── modules/
 │   ├── __init__.py
 │   ├── data_loader.py          # Carga y validación Excel/CSV
@@ -204,7 +212,7 @@ balance-masas-app/
 │   ├── electrowinning.py       # Cálculos EW
 │   ├── mass_balance.py         # Balance global Cu + Ácido
 │   ├── sheets_backend.py       # CRUD Google Sheets
-│   ├── dashboard.py            # Layout y callbacks Dash
+│   ├── dashboard.py            # Payloads para React
 │   └── reports.py              # Generación Excel/PDF
 ├── templates/
 │   └── template_input.xlsx     # Template para carga de datos
@@ -236,18 +244,18 @@ balance-masas-app/
 - [ ] Tests unitarios con datos sintéticos
 
 ### Fase 3 — Dashboard (Semana 5-6)
-- [ ] Layout Dash con pestañas
-- [ ] Callbacks de carga → cálculo → visualización
-- [ ] Gráficos Plotly de tendencias
-- [ ] Vista de inventario de pilas
-- [ ] Integración con Google Sheets (lectura histórica)
+- [x] Frontend React con navegación por vistas
+- [x] Integración carga → cálculo → visualización vía FastAPI
+- [x] Gráficos de tendencias e inventario
+- [x] Vista de inventario de pilas
+- [x] Integración con Google Sheets (lectura histórica con fallback local)
 
 ### Fase 4 — Reportes + Deploy (Semana 7-8)
-- [ ] Generación de reporte Excel
-- [ ] Generación de reporte PDF
-- [ ] Deploy en Render (free tier)
-- [ ] Documentación de uso
-- [ ] Template + datos de ejemplo
+- [x] Generación de reporte Excel
+- [x] Generación de reporte PDF
+- [x] Deploy en Render (free tier)
+- [x] Documentación de uso
+- [x] Template + datos de ejemplo
 
 ---
 

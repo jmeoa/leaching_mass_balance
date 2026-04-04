@@ -1,6 +1,5 @@
-dash>=2.14
-dash-bootstrap-components>=1.5
-plotly>=5.18
+fastapi>=0.116
+uvicorn>=0.35
 pandas>=2.0
 numpy>=1.24
 openpyxl>=3.1
@@ -10,3 +9,5 @@ reportlab>=4.0
 gunicorn>=21.2
 scipy>=1.11
 pytest>=7.4
+python-multipart>=0.0.9
+httpx>=0.27

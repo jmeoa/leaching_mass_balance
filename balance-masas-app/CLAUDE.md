@@ -2,16 +2,17 @@
 
 ## Proyecto
 
-App en Dash (Python) para calcular el balance mensual de cobre y ácido sulfúrico en una cadena Lixiviación (pilas dinámicas) → SX (2E+1S) → EW. Incluye un módulo detallado de balance por franja horizontal con subdivisión en módulos de riego.
+App web en **FastAPI + React** para calcular el balance mensual de cobre y ácido sulfúrico en una cadena Lixiviación (pilas dinámicas) → SX (2E+1S) → EW. Incluye un módulo detallado de balance por franja horizontal con subdivisión en módulos de riego y un backend API listo para persistencia y reportes.
 
 ## Stack
 
-- **Framework**: Dash + Dash Bootstrap Components
-- **Gráficos**: Plotly
+- **Backend**: FastAPI
+- **Frontend**: React + Vite
+- **Gráficos**: Recharts
 - **Data**: Pandas
 - **Persistencia**: Google Sheets (gspread + google-auth)
 - **Reportes**: openpyxl (Excel) + reportlab (PDF)
-- **Deploy**: Render (gunicorn)
+- **Deploy**: Render (gunicorn + uvicorn worker)
 - **Python**: 3.11+
 
 ## Estructura del Proyecto
@@ -19,12 +20,18 @@ App en Dash (Python) para calcular el balance mensual de cobre y ácido sulfúri
 ```
 balance-masas-app/
 ├── CLAUDE.md
-├── app.py                          # Entry point Dash
+├── app.py                          # Runner local FastAPI
 ├── config.py                       # Settings, factores estequiométricos default
 ├── requirements.txt
 ├── Procfile
-├── assets/
-│   └── styles.css
+├── backend/
+│   ├── api/
+│   │   └── main.py                 # API FastAPI + static serving frontend
+│   └── core/
+│       └── services.py             # Orquestación de dominio para la API
+├── frontend/                       # React + Vite
+│   ├── src/
+│   └── dist/
 ├── modules/
 │   ├── __init__.py
 │   ├── data_loader.py              # Carga y validación Excel/CSV
@@ -33,7 +40,7 @@ balance-masas-app/
 │   ├── electrowinning.py           # Cálculos EW
 │   ├── mass_balance.py             # Balance global Cu + Ácido
 │   ├── sheets_backend.py           # CRUD Google Sheets
-│   ├── dashboard.py                # Layout y callbacks Dash principales
+│   ├── dashboard.py                # Builders de payload para UI React
 │   └── reports.py                  # Generación Excel/PDF
 ├── modules/heap_franja/
 │   ├── __init__.py
