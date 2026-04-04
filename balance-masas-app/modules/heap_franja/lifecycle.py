@@ -11,16 +11,23 @@ from modules.heap_franja.models import Franja, HeapFranjaDataset
 
 def infer_franja_state(franja: Franja, reference_date: pd.Timestamp | None = None) -> str:
     """Infiere el estado de una franja a una fecha de referencia."""
-    reference_date = reference_date or pd.Timestamp.utcnow().normalize()
+    if reference_date is None:
+        reference_date = pd.Timestamp.now().normalize()
+    else:
+        reference_date = pd.Timestamp(reference_date).tz_localize(None) if pd.Timestamp(reference_date).tzinfo else pd.Timestamp(reference_date)
     if not franja.operativa:
         return "preparacion"
     if franja.fecha_on is None:
         return "apilando"
-    if pd.Timestamp(franja.fecha_on) > reference_date:
+    fecha_on = pd.Timestamp(franja.fecha_on).tz_localize(None) if pd.Timestamp(franja.fecha_on).tzinfo else pd.Timestamp(franja.fecha_on)
+    fecha_off = None
+    if franja.fecha_off:
+        fecha_off = pd.Timestamp(franja.fecha_off).tz_localize(None) if pd.Timestamp(franja.fecha_off).tzinfo else pd.Timestamp(franja.fecha_off)
+    if fecha_on > reference_date:
         return "apilando"
-    if franja.fecha_off and pd.Timestamp(franja.fecha_off) < reference_date:
+    if fecha_off and fecha_off < reference_date:
         return "agotada"
-    if franja.fecha_off and (pd.Timestamp(franja.fecha_off) - reference_date).days <= 10:
+    if fecha_off and (fecha_off - reference_date).days <= 10:
         return "drenando"
     return "regando"
 

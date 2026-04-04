@@ -19,6 +19,10 @@ from modules.heap_franja import (
 )
 
 
+SYNTHETIC_DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "synthetic"
+MONTHLY_SNAPSHOT_PATH = SYNTHETIC_DATA_DIR / "monthly_input.csv"
+
+
 EXPECTED_MONTHLY_COLUMNS = [
     "periodo",
     "mineral_alimentado_ton",
@@ -232,7 +236,7 @@ def _build_inventory_snapshot(dataset: HeapFranjaDataset, period_end: pd.Timesta
 @lru_cache(maxsize=4)
 def build_synthetic_monthly_input(base_path: Path | None = None) -> pd.DataFrame:
     """Deriva un input mensual sintético desde la base diaria del pad horizontal."""
-    root = base_path or Path(__file__).resolve().parents[1] / "data" / "synthetic"
+    root = base_path or SYNTHETIC_DATA_DIR
     dataset = HeapFranjaDataset.from_csv_dir(root)
 
     riego_df = dataset.riego_df.copy()
@@ -320,6 +324,35 @@ def build_synthetic_monthly_input(base_path: Path | None = None) -> pd.DataFrame
     return validated_df
 
 
+@lru_cache(maxsize=1)
+def load_monthly_snapshot(snapshot_path: Path | None = None) -> pd.DataFrame:
+    """Carga el snapshot mensual precalculado si existe."""
+    path = snapshot_path or MONTHLY_SNAPSHOT_PATH
+    if not path.exists():
+        return pd.DataFrame(columns=EXPECTED_MONTHLY_COLUMNS)
+    df = pd.read_csv(path)
+    validated_df, issues = validate_monthly_input(df)
+    if any(issue["level"] == "error" for issue in issues):
+        return pd.DataFrame(columns=EXPECTED_MONTHLY_COLUMNS)
+    return validated_df
+
+
+def persist_monthly_snapshot(df: pd.DataFrame, snapshot_path: Path | None = None) -> Path:
+    """Persiste una base mensual normalizada para arranque rápido."""
+    path = snapshot_path or MONTHLY_SNAPSHOT_PATH
+    path.parent.mkdir(parents=True, exist_ok=True)
+    serializable = df.copy()
+    serializable["periodo"] = pd.to_datetime(serializable["periodo"]).dt.strftime("%Y-%m")
+    serializable.to_csv(path, index=False)
+    load_monthly_snapshot.cache_clear()
+    return path
+
+
 def get_default_monthly_input() -> pd.DataFrame:
     """Retorna la base mensual por defecto."""
-    return build_synthetic_monthly_input().copy()
+    snapshot_df = load_monthly_snapshot()
+    if not snapshot_df.empty:
+        return snapshot_df.copy()
+    generated_df = build_synthetic_monthly_input().copy()
+    persist_monthly_snapshot(generated_df)
+    return generated_df

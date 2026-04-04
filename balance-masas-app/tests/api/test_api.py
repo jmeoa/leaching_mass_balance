@@ -34,6 +34,14 @@ def test_heap_franja_endpoint_returns_detail():
     assert payload["moduleMetrics"]
 
 
+def test_heap_pad_endpoint_returns_cycle_payload():
+    response = client.get("/api/heap/pad/PAD-01-C01")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["cycleSummary"]
+    assert payload["lifecycle"]
+
+
 def test_template_and_reports_endpoints_return_downloads():
     template_response = client.get("/api/template")
     excel_response = client.get("/api/reports/excel")

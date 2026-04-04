@@ -15,6 +15,8 @@ from modules.data_loader import (
     EXPECTED_MONTHLY_COLUMNS,
     build_synthetic_monthly_input,
     load_monthly_input_file,
+    load_monthly_snapshot,
+    persist_monthly_snapshot,
     validate_monthly_input,
 )
 from modules.electrowinning import calculate_ew_history
@@ -77,8 +79,12 @@ class BalanceService:
         workbook.save(TEMPLATE_PATH)
         return TEMPLATE_PATH
 
+    @lru_cache(maxsize=1)
     def get_monthly_input(self) -> pd.DataFrame:
-        base_df = build_synthetic_monthly_input()
+        base_df = load_monthly_snapshot()
+        if base_df.empty:
+            base_df = build_synthetic_monthly_input()
+            persist_monthly_snapshot(base_df)
         stored_df = self.backend.get_history()
         if stored_df.empty:
             return base_df
@@ -88,6 +94,7 @@ class BalanceService:
         validated, _ = validate_monthly_input(merged)
         return validated
 
+    @lru_cache(maxsize=1)
     def get_dashboard_bundle(self) -> Dict[str, Any]:
         monthly_input = self.get_monthly_input()
         return build_dashboard_bundle(monthly_input)
@@ -192,9 +199,15 @@ class BalanceService:
             return {"processed": False, "issues": issues, "rows": 0}
         for record in dataframe_to_records(df):
             self.backend.update_month(record["periodo"], record)
-        self.get_monthly_input.cache_clear() if hasattr(self.get_monthly_input, "cache_clear") else None
+        if hasattr(self.get_monthly_input, "cache_clear"):
+            self.get_monthly_input.cache_clear()
+        if hasattr(self.get_dashboard_bundle, "cache_clear"):
+            self.get_dashboard_bundle.cache_clear()
+        if hasattr(self.get_reports_bundle, "cache_clear"):
+            self.get_reports_bundle.cache_clear()
         return {"processed": True, "issues": issues, "rows": int(len(df))}
 
+    @lru_cache(maxsize=16)
     def get_reports_bundle(self, period: Optional[str] = None) -> Dict[str, Any]:
         monthly_input = self.get_monthly_input()
         if period:
