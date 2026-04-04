@@ -13,7 +13,6 @@ import {
   Line,
   LineChart,
   ResponsiveContainer,
-  Sankey,
   Tooltip,
   XAxis,
   YAxis,
@@ -170,6 +169,48 @@ function TableCard({ title, rows }: { title: string; rows: AnyRecord[] }) {
         </table>
       </div>
     </section>
+  );
+}
+
+function RoutingSummaryCard({
+  sankey,
+}: {
+  sankey: { nodes: Array<{ id: string; label: string }>; links: Array<{ source: string; target: string; value: number }> };
+}) {
+  const labels = Object.fromEntries(sankey.nodes.map((node) => [node.id, node.label]));
+  const rows = [...sankey.links]
+    .sort((left, right) => right.value - left.value)
+    .slice(0, 12)
+    .map((link) => ({
+      origen: labels[link.source] ?? link.source,
+      destino: labels[link.target] ?? link.target,
+      volumen_m3: link.value.toFixed(1),
+    }));
+
+  return (
+    <>
+      <p className="note">Se muestran los principales ruteos del ciclo ordenados por volumen total.</p>
+      <div className="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Origen</th>
+              <th>Destino</th>
+              <th>Volumen (m³)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, index) => (
+              <tr key={`${row.origen}-${row.destino}-${index}`}>
+                <td>{row.origen}</td>
+                <td>{row.destino}</td>
+                <td>{row.volumen_m3}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
 
@@ -343,23 +384,9 @@ function HeapPage() {
 
             <article className="panel">
               <div className="panel-header">
-                <h3>Sankey de ruteo</h3>
+                <h3>Ruteos principales</h3>
               </div>
-              <ResponsiveContainer width="100%" height={320}>
-                <Sankey
-                  data={{
-                    nodes: data.sankey.nodes,
-                    links: data.sankey.links.map((link) => ({
-                      source: data.sankey.nodes.findIndex((node) => node.id === link.source),
-                      target: data.sankey.nodes.findIndex((node) => node.id === link.target),
-                      value: link.value,
-                    })),
-                  }}
-                  nodePadding={24}
-                  nodeWidth={14}
-                  margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-                />
-              </ResponsiveContainer>
+              <RoutingSummaryCard sankey={data.sankey} />
             </article>
           </section>
 
