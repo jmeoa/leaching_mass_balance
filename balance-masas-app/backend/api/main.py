@@ -62,18 +62,35 @@ def get_heap_cycles() -> dict:
 
 @app.get("/api/heap/pad/{cycle_id}")
 def get_heap_pad(cycle_id: str) -> dict:
-    return get_service().get_pad_payload(cycle_id)
+    try:
+        return get_service().get_pad_payload(cycle_id)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.get("/api/heap/cycle/{cycle_id}/summary")
+def get_heap_cycle_summary(cycle_id: str) -> dict:
+    try:
+        return {"cycleSummary": get_service().get_cycle_summary(cycle_id)}
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 @app.get("/api/heap/franja/{franja_id}")
 def get_heap_franja(franja_id: str) -> dict:
-    return get_service().get_franja_payload(franja_id)
+    try:
+        return get_service().get_franja_payload(franja_id)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 @app.get("/api/heap/compare")
 def get_heap_compare(cycle_id: str = Query(...), franja_ids: Optional[str] = Query(None)) -> dict:
     ids = [item for item in franja_ids.split(",") if item] if franja_ids else None
-    return get_service().get_compare_payload(cycle_id, ids)
+    try:
+        return get_service().get_compare_payload(cycle_id, ids)
+    except KeyError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 @app.post("/api/upload/preview")

@@ -39,13 +39,21 @@ async function postFile<T>(url: string, file: File): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-function useApi<T>(url: string) {
+function useApi<T>(url: string | null) {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(Boolean(url));
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let active = true;
+    if (!url) {
+      setData(null);
+      setError(null);
+      setLoading(false);
+      return () => {
+        active = false;
+      };
+    }
     setLoading(true);
     setError(null);
     getJson<T>(url)
@@ -282,7 +290,7 @@ function HeapPage() {
     lifecycle: AnyRecord[];
     sankey: { nodes: Array<{ id: string; label: string }>; links: Array<{ source: string; target: string; value: number }> };
     alerts: Array<{ level: string; title: string; message: string }>;
-  }>(cycleId ? `/api/heap/pad/${cycleId}` : "/api/heap/pad/__none__");
+  }>(cycleId ? `/api/heap/pad/${cycleId}` : null);
 
   if (metaLoading) return <LoadingBlock message="ciclos del heap" />;
   if (metaError || !meta) return <ErrorBlock message={metaError ?? "sin metadatos"} />;
@@ -366,13 +374,19 @@ function FranjaPage() {
   const { data: meta, loading: metaLoading, error: metaError } = useApi<{ heap: { cycles: Array<{ id: string }> } }>("/api/meta");
   const [cycleId, setCycleId] = useState("");
   const [franjaId, setFranjaId] = useState("");
-  const { data: cycleData } = useApi<{ cycleSummary: AnyRecord[] }>(cycleId ? `/api/heap/pad/${cycleId}` : "/api/heap/pad/__none__");
+  const { data: cycleData, loading: cycleLoading, error: cycleError } = useApi<{ cycleSummary: AnyRecord[] }>(
+    cycleId ? `/api/heap/cycle/${cycleId}/summary` : null,
+  );
 
   useEffect(() => {
     if (!cycleId && meta?.heap.cycles[0]?.id) {
       setCycleId(meta.heap.cycles[0].id);
     }
   }, [cycleId, meta]);
+
+  useEffect(() => {
+    setFranjaId("");
+  }, [cycleId]);
 
   useEffect(() => {
     const firstFranja = cycleData?.cycleSummary[0]?.id_franja;
@@ -387,7 +401,7 @@ function FranjaPage() {
     recoveryCurve: AnyRecord[];
     daily: { acid: AnyRecord[] };
     moduleMetrics: AnyRecord[];
-  }>(franjaId ? `/api/heap/franja/${franjaId}` : "/api/heap/franja/__none__");
+  }>(franjaId ? `/api/heap/franja/${franjaId}` : null);
 
   if (metaLoading) return <LoadingBlock message="franjas" />;
   if (metaError || !meta) return <ErrorBlock message={metaError ?? "sin metadatos"} />;
@@ -431,6 +445,8 @@ function FranjaPage() {
         </div>
       </section>
 
+      {cycleLoading && <LoadingBlock message="selector de franjas" />}
+      {cycleError && <ErrorBlock message={cycleError} />}
       {loading && <LoadingBlock message="franja" />}
       {error && <ErrorBlock message={error} />}
       {data && (

@@ -27,6 +27,7 @@ from modules.heap_franja import (
     calculate_leach_ratio,
     calculate_weighted_input,
 )
+from modules.heap_franja.aggregation import aggregate_cycle_results
 from modules.heap_franja.dashboard_compare import build_compare_payload
 from modules.heap_franja.dashboard_franja import build_franja_dashboard_payload
 from modules.heap_franja.dashboard_pad import build_pad_dashboard_payload
@@ -141,12 +142,15 @@ class BalanceService:
             "module_metrics_df": module_metrics_df,
         }
 
-    def analyze_all_franjas(self) -> Dict[str, Dict[str, Any]]:
+    @lru_cache(maxsize=16)
+    def analyze_cycle(self, cycle_id: str) -> Dict[str, Dict[str, Any]]:
         dataset = self.get_heap_dataset()
+        if cycle_id not in dataset.ciclos:
+            raise KeyError(f"Ciclo no encontrado: {cycle_id}")
         results: Dict[str, Dict[str, Any]] = {}
-        for franja_id in dataset.franjas.keys():
+        for franja in dataset.get_franjas_by_ciclo(cycle_id, operativas_only=False):
             try:
-                results[franja_id] = self.analyze_franja(franja_id)
+                results[franja.id_franja] = self.analyze_franja(franja.id_franja)
             except Exception:
                 continue
         return results
@@ -165,10 +169,22 @@ class BalanceService:
             ]
         }
 
+    @lru_cache(maxsize=16)
+    def get_cycle_summary(self, cycle_id: str) -> List[Dict[str, Any]]:
+        dataset = self.get_heap_dataset()
+        if cycle_id not in dataset.ciclos:
+            raise KeyError(f"Ciclo no encontrado: {cycle_id}")
+        cycle_df = aggregate_cycle_results(dataset, self.analyze_cycle(cycle_id), cycle_id)
+        return dataframe_to_records(cycle_df)
+
+    @lru_cache(maxsize=16)
     def get_pad_payload(self, cycle_id: str) -> Dict[str, Any]:
         dataset = self.get_heap_dataset()
-        return build_pad_dashboard_payload(dataset, self.analyze_all_franjas(), cycle_id)
+        if cycle_id not in dataset.ciclos:
+            raise KeyError(f"Ciclo no encontrado: {cycle_id}")
+        return build_pad_dashboard_payload(dataset, self.analyze_cycle(cycle_id), cycle_id)
 
+    @lru_cache(maxsize=64)
     def get_franja_payload(self, franja_id: str) -> Dict[str, Any]:
         dataset = self.get_heap_dataset()
         franja = dataset.get_franja(franja_id)
@@ -180,9 +196,12 @@ class BalanceService:
             cycle.cut_off_acid_cu,
         )
 
+    @lru_cache(maxsize=32)
     def get_compare_payload(self, cycle_id: str, franja_ids: Optional[Iterable[str]] = None) -> Dict[str, Any]:
         dataset = self.get_heap_dataset()
-        return build_compare_payload(dataset, self.analyze_all_franjas(), cycle_id, franja_ids)
+        if cycle_id not in dataset.ciclos:
+            raise KeyError(f"Ciclo no encontrado: {cycle_id}")
+        return build_compare_payload(dataset, self.analyze_cycle(cycle_id), cycle_id, franja_ids)
 
     def preview_upload(self, content: bytes, filename: str) -> Dict[str, Any]:
         df, issues = load_monthly_input_file(content, filename)
@@ -205,6 +224,16 @@ class BalanceService:
             self.get_dashboard_bundle.cache_clear()
         if hasattr(self.get_reports_bundle, "cache_clear"):
             self.get_reports_bundle.cache_clear()
+        if hasattr(self.analyze_cycle, "cache_clear"):
+            self.analyze_cycle.cache_clear()
+        if hasattr(self.get_cycle_summary, "cache_clear"):
+            self.get_cycle_summary.cache_clear()
+        if hasattr(self.get_pad_payload, "cache_clear"):
+            self.get_pad_payload.cache_clear()
+        if hasattr(self.get_franja_payload, "cache_clear"):
+            self.get_franja_payload.cache_clear()
+        if hasattr(self.get_compare_payload, "cache_clear"):
+            self.get_compare_payload.cache_clear()
         return {"processed": True, "issues": issues, "rows": int(len(df))}
 
     @lru_cache(maxsize=16)

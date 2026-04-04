@@ -42,6 +42,18 @@ def test_heap_pad_endpoint_returns_cycle_payload():
     assert payload["lifecycle"]
 
 
+def test_heap_cycle_summary_endpoint_returns_rows():
+    response = client.get("/api/heap/cycle/PAD-01-C01/summary")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["cycleSummary"]
+
+
+def test_invalid_heap_ids_return_404():
+    assert client.get("/api/heap/pad/__none__").status_code == 404
+    assert client.get("/api/heap/franja/__none__").status_code == 404
+
+
 def test_template_and_reports_endpoints_return_downloads():
     template_response = client.get("/api/template")
     excel_response = client.get("/api/reports/excel")
